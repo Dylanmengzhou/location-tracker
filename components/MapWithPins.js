@@ -31,7 +31,15 @@ const MapWithPins = ({ location }) => {
         maxZoom={19}
       />
       {location && (
-        <Marker position={[location.latitude, location.longitude]} icon={icon}>
+        <Marker
+          position={[location.latitude, location.longitude]}
+          icon={L.divIcon({
+            iconSize: [size, size],
+            iconAnchor: [size / 2, size + 9],
+            className: "mymarker",
+            html: "😁",
+          })}
+        >
           <Popup>
             Location: ({location.latitude}, {location.longitude}) at{" "}
             {new Date(location.timestamp * 1000).toISOString()}
