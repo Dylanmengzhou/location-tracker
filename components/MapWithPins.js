@@ -27,7 +27,7 @@ const MapWithPins = ({ location }) => {
   }
   const customIcon = new L.Icon({
     iconUrl: MapMarkerIcon.src,
-    iconSize: [25, 41],
+    iconSize: [15, 15],
   });
   return (
     <>
