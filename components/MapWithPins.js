@@ -35,7 +35,7 @@ const MapWithPins = ({ location }) => {
         <Marker
           position={[location.latitude, location.longitude]}
           icon={L.divIcon({
-            iconSize: [size, size],
+            iconSize: [100, 100],
             iconAnchor: [size / 2, size + 9],
             className: "mymarker",
             html: "😁",
