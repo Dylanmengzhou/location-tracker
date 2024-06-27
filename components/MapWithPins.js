@@ -36,9 +36,9 @@ const MapWithPins = ({ location }) => {
           position={[location.latitude, location.longitude]}
           icon={L.divIcon({
             iconSize: [100, 100],
-            iconAnchor: [size / 2, size + 9],
+            iconAnchor: [50, 109], // Adjusted based on new size
             className: "mymarker",
-            html: "😁",
+            html: "<div class='flex items-center justify-center' style='font-size: 80px; width: 100px; height: 100px;'>😁</div>",
           })}
         >
           <Popup>
