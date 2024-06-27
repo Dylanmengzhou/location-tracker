@@ -3,20 +3,22 @@ import { useState, useEffect } from "react";
 import Map from "../components/Map";
 
 export default function Home() {
-  const [locations, setLocations] = useState([]);
+  const [location, setLocation] = useState(null);
 
-  const fetchLocations = async () => {
+  const fetchLatestLocation = async () => {
     const res = await fetch("/api/location");
     const data = await res.json();
-    setLocations(data);
+    if (data.length > 0) {
+      setLocation(data[data.length - 1]);
+    }
   };
 
   useEffect(() => {
     // Initial fetch
-    fetchLocations();
+    fetchLatestLocation();
 
     // Set up an interval to fetch locations every 10 seconds
-    const interval = setInterval(fetchLocations, 10000);
+    const interval = setInterval(fetchLatestLocation, 10000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
@@ -25,7 +27,7 @@ export default function Home() {
   return (
     <main>
       <div>
-        <Map locations={locations} refreshLocations={fetchLocations} />
+        <Map location={location} refreshLocation={fetchLatestLocation} />
       </div>
     </main>
   );

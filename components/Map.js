@@ -20,7 +20,7 @@ const DynamicPopup = dynamic(
   { ssr: false }
 );
 
-const Map = ({ locations, refreshLocations }) => {
+const Map = ({ location, refreshLocation }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Map = ({ locations, refreshLocations }) => {
   return (
     <>
       <button
-        onClick={refreshLocations}
+        onClick={refreshLocation}
         className="bg-blue-500 h-12 w-30 absolute bottom-10 right-10 m-4 p-2 rounded-lg text-white z-10"
         style={{ zIndex: 1000 }}
       >
@@ -49,17 +49,14 @@ const Map = ({ locations, refreshLocations }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           maxZoom={19}
         />
-        {locations.map((location, idx) => (
-          <DynamicMarker
-            key={idx}
-            position={[location.latitude, location.longitude]}
-          >
+        {location && (
+          <DynamicMarker position={[location.latitude, location.longitude]}>
             <DynamicPopup>
               Location: ({location.latitude}, {location.longitude}) at{" "}
               {new Date(location.timestamp * 1000).toISOString()}
             </DynamicPopup>
           </DynamicMarker>
-        ))}
+        )}
       </DynamicMapContainer>
     </>
   );
