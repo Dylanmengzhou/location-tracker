@@ -41,12 +41,8 @@ const Map = ({ locations }) => {
     <>
       <button
         onClick={togglePins}
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 1000,
-        }}
+        className="bg-blue-500 h-12 w-30 absolute bottom-10 right-10 m-4 p-2 rounded-lg text-white z-10"
+        style={{ zIndex: 1000 }}
       >
         {showPins ? "Hide Pins" : "Show Pins"}
       </button>
