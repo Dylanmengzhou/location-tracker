@@ -29,7 +29,7 @@ const MapWithPins = ({ location }) => {
     <>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        maxZoom={20}
+        maxZoom={60}
       />
       {location && (
         <Marker
