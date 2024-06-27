@@ -13,7 +13,6 @@ const DynamicMapContainer = dynamic(
 
 const Map = ({ location, refreshLocation }) => {
   const [isClient, setIsClient] = useState(false);
-  const [shouldZoom, setShouldZoom] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -23,21 +22,16 @@ const Map = ({ location, refreshLocation }) => {
     return null;
   }
 
-  const ZoomToLocation = ({ location, shouldZoom }) => {
+  const ZoomToLocation = ({ location }) => {
     const map = useMap();
 
     useEffect(() => {
-      if (location && shouldZoom) {
+      if (location) {
         map.setView([location.latitude, location.longitude], 10); // Adjust the zoom level as needed
       }
-    }, [location, shouldZoom]);
+    }, [location]);
 
     return null;
-  };
-
-  const handleRefreshLocation = async () => {
-    await refreshLocation();
-    setShouldZoom(true);
   };
 
   const handleGoogleMapRedirect = () => {
@@ -51,7 +45,9 @@ const Map = ({ location, refreshLocation }) => {
   return (
     <>
       <button
-        onClick={handleRefreshLocation}
+        onClick={() => {
+          refreshLocation();
+        }}
         className="bg-blue-500 h-12 w-30 absolute bottom-10 right-10 m-4 p-2 rounded-lg text-white z-10"
         style={{ zIndex: 1000 }}
       >
@@ -62,14 +58,14 @@ const Map = ({ location, refreshLocation }) => {
         className="bg-green-500 h-12 w-30 absolute bottom-24 right-10 m-4 p-2 rounded-lg text-white z-10"
         style={{ zIndex: 1000 }}
       >
-        Google Maps
+        Open in Google Maps
       </button>
       <DynamicMapContainer
         center={[0, 0]}
         zoom={2}
         style={{ height: "100vh", width: "100%" }}
       >
-        <ZoomToLocation location={location} shouldZoom={shouldZoom} />
+        <ZoomToLocation location={location} />
         <MapWithPins location={location} />
       </DynamicMapContainer>
     </>
