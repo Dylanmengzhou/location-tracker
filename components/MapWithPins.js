@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { TileLayer, Marker, Popup, useMap } from "react-leaflet";
 
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 const MapWithPins = ({ location }) => {
   const [isClient, setIsClient] = useState(false);
   const map = useMap();
