@@ -38,7 +38,7 @@ const MapWithPins = ({ location }) => {
             iconSize: [100, 100],
             iconAnchor: [50, 109], // Adjusted based on new size
             className: "mymarker",
-            html: "<div class='flex items-center justify-center' style='font-size: 80px; width: 50px; height: 50px;'>😁</div>",
+            html: "<div class='flex items-center justify-center' style='font-size: 30px; width: 30px; height: 30px;'>😁</div>",
           })}
         >
           <Popup>
