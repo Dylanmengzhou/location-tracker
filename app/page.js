@@ -18,7 +18,7 @@ export default function Home() {
     fetchLatestLocation();
 
     // Set up an interval to fetch locations every 10 seconds
-    const interval = setInterval(fetchLatestLocation, 10000);
+    const interval = setInterval(fetchLatestLocation, 3000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);

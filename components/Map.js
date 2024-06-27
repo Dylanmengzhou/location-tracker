@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import { useMap } from "react-leaflet";
 
 const DynamicMapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -22,10 +23,17 @@ const DynamicPopup = dynamic(
 
 const Map = ({ location, refreshLocation }) => {
   const [isClient, setIsClient] = useState(false);
+  const map = useMap();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (location && map) {
+      map.setView([location.latitude, location.longitude], 15); // Zoom level 15, you can adjust this as needed
+    }
+  }, [location, map]);
 
   if (!isClient) {
     return null;
