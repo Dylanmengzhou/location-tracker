@@ -1,6 +1,9 @@
+// app/page.js
 "use client";
 import { useState, useEffect } from "react";
-import Map from "../components/Map";
+import dynamic from "next/dynamic";
+
+const DynamicMap = dynamic(() => import("../components/Map"), { ssr: false });
 
 export default function Home() {
   const [location, setLocation] = useState(null);
@@ -14,20 +17,20 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Initial fetch
+    // 初始获取
     fetchLatestLocation();
 
-    // Set up an interval to fetch locations every 10 seconds
-    const interval = setInterval(fetchLatestLocation, 3000);
+    // 设置一个间隔每10秒获取一次位置
+    const interval = setInterval(fetchLatestLocation, 10000);
 
-    // Clean up the interval on component unmount
+    // 在组件卸载时清除间隔
     return () => clearInterval(interval);
   }, []);
 
   return (
     <main>
       <div>
-        <Map location={location} refreshLocation={fetchLatestLocation} />
+        <DynamicMap location={location} refreshLocation={fetchLatestLocation} />
       </div>
     </main>
   );
