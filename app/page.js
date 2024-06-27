@@ -17,13 +17,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // 初始获取
+    // Initial fetch
     fetchLatestLocation();
 
-    // 设置一个间隔每10秒获取一次位置
+    // Set up interval for fetching location
     const interval = setInterval(fetchLatestLocation, 10000);
 
-    // 在组件卸载时清除间隔
+    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
