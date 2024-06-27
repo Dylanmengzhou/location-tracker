@@ -1,4 +1,3 @@
-// components/Map.js
 "use client";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
@@ -21,9 +20,8 @@ const DynamicPopup = dynamic(
   { ssr: false }
 );
 
-const Map = ({ locations }) => {
+const Map = ({ locations, refreshLocations }) => {
   const [isClient, setIsClient] = useState(false);
-  const [showPins, setShowPins] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
@@ -33,18 +31,14 @@ const Map = ({ locations }) => {
     return null;
   }
 
-  const togglePins = () => {
-    setShowPins(!showPins);
-  };
-
   return (
     <>
       <button
-        onClick={togglePins}
+        onClick={refreshLocations}
         className="bg-blue-500 h-12 w-30 absolute bottom-10 right-10 m-4 p-2 rounded-lg text-white z-10"
         style={{ zIndex: 1000 }}
       >
-        {showPins ? "Hide Pins" : "Show Pins"}
+        Refresh Pins
       </button>
       <DynamicMapContainer
         center={[0, 0]}
@@ -55,18 +49,17 @@ const Map = ({ locations }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           maxZoom={19}
         />
-        {showPins &&
-          locations.map((location, idx) => (
-            <DynamicMarker
-              key={idx}
-              position={[location.latitude, location.longitude]}
-            >
-              <DynamicPopup>
-                Location: ({location.latitude}, {location.longitude}) at{" "}
-                {new Date(location.timestamp * 1000).toISOString()}
-              </DynamicPopup>
-            </DynamicMarker>
-          ))}
+        {locations.map((location, idx) => (
+          <DynamicMarker
+            key={idx}
+            position={[location.latitude, location.longitude]}
+          >
+            <DynamicPopup>
+              Location: ({location.latitude}, {location.longitude}) at{" "}
+              {new Date(location.timestamp * 1000).toISOString()}
+            </DynamicPopup>
+          </DynamicMarker>
+        ))}
       </DynamicMapContainer>
     </>
   );
