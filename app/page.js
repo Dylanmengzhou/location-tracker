@@ -8,7 +8,7 @@ const DynamicMap = dynamic(() => import("../components/Map"), { ssr: false });
 export default function Home() {
   const [location, setLocation] = useState(null);
 
-  const fetchLatestLocation = async () => {
+  const fetchLocation = async () => {
     const res = await fetch("/api/location");
     const data = await res.json();
     if (data.length > 0) {
@@ -18,10 +18,10 @@ export default function Home() {
 
   useEffect(() => {
     // Initial fetch
-    fetchLatestLocation();
+    fetchLocation();
 
     // Set up interval for fetching location
-    const interval = setInterval(fetchLatestLocation, 10000);
+    const interval = setInterval(fetchLocation, 3000);
 
     // Clean up interval on component unmount
     return () => clearInterval(interval);
@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main>
       <div>
-        <DynamicMap location={location} refreshLocation={fetchLatestLocation} />
+        <DynamicMap location={location} refreshLocation={fetchLocation} />
       </div>
     </main>
   );
