@@ -24,7 +24,7 @@ const MapWithPins = ({ location }) => {
   {
     /* <Marker position={[location.latitude, location.longitude]} icon={icon}></Marker> */
   }
-  const size = 200;
+  const size = 10;
   return (
     <>
       <TileLayer
