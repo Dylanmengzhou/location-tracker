@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import MapMarkerIcon from "../public/marker-icon.png";
 
-const icon = L.icon({ iconUrl: "../public/marker-icon.png" });
 const MapWithPins = ({ location }) => {
   const [isClient, setIsClient] = useState(false);
   const map = useMap();

@@ -1,47 +1,31 @@
+// app/page.js
 "use client";
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
-const DynamicMap = dynamic(() => import('../components/Map'), { ssr: false });
+const DynamicMap = dynamic(() => import("../components/Map"), { ssr: false });
 
 export default function Home() {
-  const [date, setDate] = useState(new Date());
-  const [locations, setLocations] = useState([]);
-  const [filteredLocations, setFilteredLocations] = useState([]);
-  const [timelineValue, setTimelineValue] = useState(0);
+  const [location, setLocation] = useState(null);
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      const res = await fetch(`/api/location/byDate?date=${date.toISOString().split('T')[0]}`);
-      const data = await res.json();
-      setLocations(data);
-      setFilteredLocations(data);
-    };
-    fetchLocations();
-  }, [date]);
-
-  useEffect(() => {
-    if (locations.length > 0) {
-      const index = Math.floor((timelineValue / 100) * locations.length);
-      setFilteredLocations(locations.slice(0, index + 1));
+  const fetchLatestLocation = async () => {
+    const res = await fetch("/api/location");
+    const data = await res.json();
+    if (data.length > 0) {
+      setLocation(data[data.length - 1]);
     }
-  }, [timelineValue, locations]);
+  };
+
+  useEffect(() => {
+    // Initial fetch
+    fetchLatestLocation();
+  }, []); // Only run once when the component mounts
 
   return (
     <main>
-      <div className="controls">
-        <DatePicker selected={date} onChange={(date) => setDate(date)} />
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={timelineValue}
-          onChange={(e) => setTimelineValue(e.target.value)}
-        />
+      <div>
+        <DynamicMap location={location} refreshLocation={fetchLatestLocation} />
       </div>
-      <DynamicMap locations={filteredLocations} />
     </main>
   );
 }
