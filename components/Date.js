@@ -1,9 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Polyline, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Popup,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
 import MapMarkerIcon from "../public/marker-icon.png";
+import Link from "next/link";
 
 const Map = ({ locations }) => {
   const [isClient, setIsClient] = useState(false);
@@ -40,16 +48,17 @@ const Map = ({ locations }) => {
   const openInGoogleMaps = (location) => {
     if (location) {
       const url = `https://www.google.com/maps?q=${location.latitude},${location.longitude}`;
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     }
   };
 
   return (
     <>
+      <Link href="/" className="absolute top-3 right-5 bg-black rounded text-white p-2" style={{ zIndex: 1000}}>Live</Link>
       <button
         onClick={() => openInGoogleMaps(locations[locations.length - 1])}
-        className="bg-green-500 h-12 w-30 absolute bottom-33 right-0 bottom-12 lg:right-0 p-2 rounded-lg text-white"
-        style={{ zIndex: 1000, bottom:"110px" }}
+        className="bg-green-500 h-12 w-30 absolute lg:bottom-24 bottom-28  right-3 p-2 rounded-lg text-white"
+        style={{ zIndex: 1000 }}
       >
         Show in Google
       </button>
@@ -74,8 +83,11 @@ const Map = ({ locations }) => {
             icon={customIcon}
           >
             <Popup>
-              Location: ({locations[locations.length - 1].latitude}, {locations[locations.length - 1].longitude}) at{" "}
-              {new Date(locations[locations.length - 1].timestamp * 1000).toISOString()}
+              Location: ({locations[locations.length - 1].latitude},{" "}
+              {locations[locations.length - 1].longitude}) at{" "}
+              {new Date(
+                locations[locations.length - 1].timestamp * 1000
+              ).toISOString()}
             </Popup>
           </Marker>
         )}

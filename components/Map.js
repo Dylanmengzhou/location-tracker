@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import MapWithPins from "./MapWithPins";
 import { MapContainer, useMap } from "react-leaflet";
+import Link from "next/link";
 
 const DynamicMapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -44,16 +45,17 @@ const Map = ({ location, refreshLocation }) => {
 
   return (
     <>
+      <Link href="./datePicker" className="absolute top-3 right-5 bg-black rounded text-white p-2" style={{ zIndex: 1000}}>History</Link>
       <button
         onClick={refreshLocation}
-        className="bg-blue-500 h-12 w-30 absolute bottom-0 lg:right-10 right-0 m-4 p-2 rounded-lg text-white z-10"
+        className="bg-blue-500 h-12 w-30 absolute bottom-0 lg:right-3 right-0 m-4 lg:mr-0 p-2 rounded-lg text-white"
         style={{ zIndex: 1000 }}
       >
         Refresh Pins
       </button>
       <button
         onClick={handleGoogleMapRedirect}
-        className="bg-green-500 h-12 w-30 absolute bottom-14 lg:right-10 right-0 m-4 p-2 rounded-lg text-white z-10"
+        className="bg-green-500 h-12 w-30 absolute bottom-14 lg:right-3 right-0 m-4 lg:mr-0 p-2 rounded-lg text-white"
         style={{ zIndex: 1000 }}
       >
         Open in Google
