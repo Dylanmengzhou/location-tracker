@@ -19,13 +19,7 @@ export default function Home() {
   useEffect(() => {
     // Initial fetch
     fetchLatestLocation();
-
-    // Set up interval for fetching location
-    const interval = setInterval(fetchLatestLocation, 5000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+  }, []); // Only run once when the component mounts
 
   return (
     <main>

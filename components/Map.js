@@ -45,9 +45,7 @@ const Map = ({ location, refreshLocation }) => {
   return (
     <>
       <button
-        onClick={() => {
-          refreshLocation();
-        }}
+        onClick={refreshLocation}
         className="bg-blue-500 h-12 w-30 absolute bottom-10 right-10 m-4 p-2 rounded-lg text-white z-10"
         style={{ zIndex: 1000 }}
       >
