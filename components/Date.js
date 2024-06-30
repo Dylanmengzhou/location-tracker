@@ -57,10 +57,10 @@ const Map = ({ locations }) => {
       <Link href="/" className="absolute top-3 right-5 bg-black rounded text-white p-2" style={{ zIndex: 1000}}>Live</Link>
       <button
         onClick={() => openInGoogleMaps(locations[locations.length - 1])}
-        className="bg-green-500 h-12 w-30 absolute lg:bottom-24 bottom-28  right-3 p-2 rounded-lg text-white"
+        className="bg-green-500 h-12 w-30 absolute lg:bottom-24 top-14  right-3 p-2 rounded-lg text-white"
         style={{ zIndex: 1000 }}
       >
-        Show in Google
+        Google
       </button>
       <MapContainer
         center={[0, 0]}
